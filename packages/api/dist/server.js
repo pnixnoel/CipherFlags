@@ -4,14 +4,13 @@ const app = Fastify({
     logger: true, // optional: logs requests
 });
 // health check route
-app.get('/healthz', async (req, reply) => {
+app.get('/healthz', async () => {
     return { ok: true };
 });
 // start server
 const start = async () => {
     try {
         await app.listen({ port: 3000, host: '0.0.0.0' });
-        console.log('🚀 API server ready at http://localhost:3000');
     }
     catch (err) {
         app.log.error(err);
