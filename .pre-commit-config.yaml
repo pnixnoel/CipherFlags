@@ -1,7 +1,8 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.25.1           # pin to your ESLint version
     hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
+      - id: eslint
+        name: ESLint via pnpm for api
+        entry: pnpm lint-api
+        pass_filenames: false
