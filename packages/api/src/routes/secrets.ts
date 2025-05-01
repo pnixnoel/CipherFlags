@@ -4,7 +4,7 @@ import { z } from "zod";
 import { prismaClient } from "../utils/prisma";
 import { SecretCreateSchema, SecretResponseSchema } from "../schemas/secret.schema";
 import { getEncryptionProvider } from "../services/encryptionFactory";
-import { parsePagination } from "../services/pagination";
+// import { parsePagination } from "../services/pagination";
 
 const provider = getEncryptionProvider();
 
@@ -32,7 +32,7 @@ export async function secretsRoutes(fastify: FastifyInstance) {
         },
       },
     },
-    async (request) => {
+    async () => {
     //   const { skip, take } = parsePagination(request.query as any);
     //   const [data, total] = await Promise.all([
     //     prismaClient.secret.findMany({ skip, take, orderBy: { createdAt: "desc" } }),
