@@ -1,0 +1,19 @@
+{
+  "name": "CipherFlags",
+  "version": "1.0.0",
+  "description": "CipherFlags is an open‑source project targeting DevOps teams that require low‑latency feature toggling and secure secret storage in on‑prem or cloud environments.",
+  "scripts": {
+     "postinstall": "pnpm -r exec prisma generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.10.0",
+  "devDependencies": {
+    "prisma": "^5.15.0",
+    "typescript": "^5.5.0",
+    "ts-node": "^10.9.1",
+    "vitest": "^1.5.0",
+    "@types/node": "^20.11.0"
+  }
+}
