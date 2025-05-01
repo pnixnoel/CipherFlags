@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@prisma/client": "5.22.0",
+    "axios": "^1.9.0",
     "fastify": "^4.26.0",
     "zod": "^3.23.0",
     "zod-to-json-schema": "^3.24.5"

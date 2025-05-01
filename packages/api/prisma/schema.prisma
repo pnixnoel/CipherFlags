@@ -18,9 +18,10 @@ model Flag {
   updatedAt    DateTime @updatedAt
 }
 
-model TEST_ONE {
-  id           Int      @id @default(autoincrement())
-  key          String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model Secret {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  ciphertext  String
+  metadata    Json?
+  createdAt   DateTime @default(now())
 }

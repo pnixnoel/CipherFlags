@@ -2,6 +2,7 @@
 import Fastify from 'fastify';
 
 import { flagsRoutes } from "./routes/flags";
+import { secretsRoutes } from "./routes/secrets";
 
 const app = Fastify({
   logger: true, // optional: logs requests
@@ -19,6 +20,9 @@ async function start() {
 
     // register our flags endpoints
     await flagsRoutes(app);
+
+    app.register(secretsRoutes, { prefix: "/api" });
+
 
     await app.listen({ port: 4000 });
   }
