@@ -5,4 +5,7 @@ repos:
       - id: eslint
         name: ESLint via pnpm for api
         entry: pnpm lint-api
-        pass_filenames: false
+        pass_filenames: true
+        exclude: |
+            (?x)
+            ^packages/api/dist/  # Ignore the API distribution directory

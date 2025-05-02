@@ -1,0 +1,13 @@
+# ignore all node_modules anywhere
+node_modules
+**/node_modules
+
+# ignore pnpm store cache
+pnpm-store
+
+# ignore local build artifacts
+.build
+
+# optional: hide env
+.env
+.env.prod
