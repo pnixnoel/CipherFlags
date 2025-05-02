@@ -1,2 +1,16 @@
 .env
+.env.prod
 node_modules
+vault/config
+
+.DS_Store
+
+packages/api/.DS_Store
+
+packages/.DS_Store
+
+packages/api/dist
+
+docker-compose.prod.yml
+
+Dockerfile

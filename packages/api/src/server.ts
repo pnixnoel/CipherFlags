@@ -1,25 +1,33 @@
 // packages/api/src/server.ts
+import Fastify from 'fastify';
 
-import Fastify from 'fastify'
-import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
+import { flagsRoutes } from "./routes/flags";
+import { secretsRoutes } from "./routes/secrets";
 
 const app = Fastify({
   logger: true, // optional: logs requests
 })
 
-// health check route
-app.get('/healthz', async (req: FastifyRequest, reply: FastifyReply) => {
-  return { ok: true }
-})
-
-// start server
-const start = async () => {
+async function start() {
   try {
-    await app.listen({ port: 3000, host: '0.0.0.0' })
-    console.log('🚀 API server ready at http://localhost:3000')
-  } catch (err) {
+    const app = Fastify({ logger: true });
+
+
+    // health check route
+    app.get('/healthz', async () => {
+      return { ok: true }
+    })
+
+    // register our flags endpoints
+    await flagsRoutes(app);
+
+    await secretsRoutes(app);
+
+
+    await app.listen({ port: 4000 });
+  }
+  catch (err) {
     app.log.error(err)
-    process.exit(1)
   }
 }
 
