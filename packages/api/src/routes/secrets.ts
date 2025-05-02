@@ -2,46 +2,62 @@ import { FastifyInstance, FastifyRequest } from "fastify";
 import { z } from "zod";
 
 import { prismaClient } from "../utils/prisma";
-import { SecretCreateSchema, SecretResponseSchema } from "../schemas/secret.schema";
+import { SecretRequestType } from "../schemas/secret.schema";
 import { getEncryptionProvider } from "../services/encryptionFactory";
-// import { parsePagination } from "../services/pagination";
+import { PaginationQuery, parsePagination } from "../services/pagination";
 
 const provider = getEncryptionProvider();
 
 
-type CreateSecretBody = z.infer<typeof SecretCreateSchema>;
+type CreateSecretBody = z.infer<typeof SecretRequestType>;
 
 export async function secretsRoutes(fastify: FastifyInstance) {
   // GET /secrets
   fastify.get(
     "/secrets",
     {
-      schema: {
-        querystring: {
-          type: "object",
-          properties: {
-            page: { type: "number", default: 1 },
-            perPage: { type: "number", default: 20 },
+        schema: {
+          querystring: {
+            type: "object",
+            properties: {
+              page:    { type: "integer", default: 1, minimum: 1 },
+              perPage: { type: "integer", default: 20, minimum: 1, maximum: 100 },
+            },
+            additionalProperties: false
           },
-        },
-        response: {
-          200: z.object({
-            data: z.array(SecretResponseSchema),
-            total: z.number(),
-          }).required(),
-        },
-      },
+          response: {
+            200: {
+              type: "object",
+              properties: {
+                data: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id:        { type: "string" },
+                      name:      { type: "string" },
+                      metadata:  { type: ["object", "null"] },
+                      createdAt: { type: "string", format: "date-time" }
+                    },
+                    required: ["id","name","createdAt"],
+                    additionalProperties: false
+                  }
+                },
+                total: { type: "integer" }
+              },
+              required: ["data","total"],
+              additionalProperties: false
+            }
+          }
+        }
     },
-    async () => {
-    //   const { skip, take } = parsePagination(request.query as any);
-    //   const [data, total] = await Promise.all([
-    //     prismaClient.secret.findMany({ skip, take, orderBy: { createdAt: "desc" } }),
-    //     prismaClient.secret.count(),
-    //   ]);
-    //   // strip ciphertext: Zod schema only returns id,name,metadata,createdAt
-    //   return { data, total };
-
-        return {}
+    async (request) => {
+        const { skip, take } = parsePagination(request.query as PaginationQuery);
+        const [data, total] = await Promise.all([
+            prismaClient.secret.findMany({ skip, take, orderBy: { createdAt: "desc" } }),
+            prismaClient.secret.count(),
+          ]);
+          return { data, total };
     }
   );
 
@@ -49,10 +65,31 @@ export async function secretsRoutes(fastify: FastifyInstance) {
   fastify.post(
     "/secrets",
     {
-      schema: {
-        body: SecretCreateSchema,
-        response: { 201: SecretResponseSchema },
-      },
+        schema: {
+          body: {
+            type: "object",
+            properties: {
+              name:      { type: "string", minLength: 3 },
+              plaintext: { type: "string", minLength: 1 },
+              metadata:  { type: ["object","null"] },
+            },
+            required: ["name","plaintext"],
+            additionalProperties: false
+          },
+          response: {
+            201: {
+              type: "object",
+              properties: {
+                id:        { type: "string" },
+                name:      { type: "string" },
+                metadata:  { type: ["object","null"] },
+                createdAt: { type: "string", format: "date-time" }
+              },
+              required: ["id","name","createdAt"],
+              additionalProperties: false
+            }
+          }
+        }
     },
     async (request: FastifyRequest<{ Body: CreateSecretBody }>, reply) => {
       const { name, plaintext, metadata } = request.body;

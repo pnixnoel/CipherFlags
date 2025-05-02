@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "CipherFlags is an open‑source project targeting DevOps teams that require low‑latency feature toggling and secure secret storage in on‑prem or cloud environments.",
   "scripts": {
-    "lint-api": "eslint ./packages/api/src --ext .ts,.tsx --cache",
-    "lint-api:fix": "eslint ./packages/api/src --ext .ts,.tsx --fix --cache"
+    "lint-api": "eslint ./packages/api/src --ext .ts,.tsx",
+    "lint-api:fix": "eslint ./packages/api/src --ext .ts,.tsx --fix"
   },
   "keywords": [],
   "author": "",

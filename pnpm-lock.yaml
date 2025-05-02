@@ -50,6 +50,9 @@ importers:
       fastify:
         specifier: ^4.26.0
         version: 4.29.1
+      fastify-type-provider-zod:
+        specifier: ^4.0.2
+        version: 4.0.2(fastify@4.29.1)(zod@3.24.3)
       zod:
         specifier: ^3.23.0
         version: 3.24.3
@@ -57,6 +60,9 @@ importers:
         specifier: ^3.24.5
         version: 3.24.5(zod@3.24.3)
     devDependencies:
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.31.1
         version: 8.31.1(@typescript-eslint/parser@8.31.1(eslint@9.25.1)(typescript@5.8.3))(eslint@9.25.1)(typescript@5.8.3)
@@ -69,6 +75,9 @@ importers:
       prisma:
         specifier: 5.22.0
         version: 5.22.0
+      vitest:
+        specifier: ^1.5.0
+        version: 1.6.1(@types/node@22.15.3)
 
 packages:
 
@@ -257,6 +266,9 @@ packages:
 
   '@fastify/error@3.4.1':
     resolution: {integrity: sha512-wWSvph+29GR783IhmvdwWnN4bUxTD01Vm5Xad4i7i1VuAOItLvbPAb69sb0IQ2N57yprvhNIwAP5B6xfKTmjmQ==}
+
+  '@fastify/error@4.1.0':
+    resolution: {integrity: sha512-KeFcciOr1eo/YvIXHP65S94jfEEqn1RxTRBT1aJaHxY5FK0/GDXYozsQMMWlZoHgi8i0s+YtrLsgj/JkUUjSkQ==}
 
   '@fastify/fast-json-stringify-compiler@4.3.0':
     resolution: {integrity: sha512-aZAXGYo6m22Fk1zZzEUKBvut/CIIQe/BapEORnxiD5Qr0kPHqqI69NtEMCme74h+at72sPhbkb4ZrLd1W3KRLA==}
@@ -919,6 +931,12 @@ packages:
 
   fast-uri@3.0.6:
     resolution: {integrity: sha512-Atfo14OibSv5wAp4VWNsFYE1AchQRTv9cBGWET4pZWHzYshFSS9NQI6I57rdKn9croWVMbYFbLhJ+yJvmZIIHw==}
+
+  fastify-type-provider-zod@4.0.2:
+    resolution: {integrity: sha512-FDRzSL3ZuoZ+4YDevR1YOinmDKkxOdy3QB9dDR845sK+bQvDroPKhHAXLEAOObDxL7SMA0OZN/A4osrNBTdDTQ==}
+    peerDependencies:
+      fastify: ^5.0.0
+      zod: ^3.14.2
 
   fastify@4.29.1:
     resolution: {integrity: sha512-m2kMNHIG92tSNWv+Z3UeTR9AWLLuo7KctC7mlFPtMEVrfjIhmQhkQnT9v15qA/BfVq3vvj134Y0jl9SBje3jXQ==}
@@ -2055,6 +2073,8 @@ snapshots:
 
   '@fastify/error@3.4.1': {}
 
+  '@fastify/error@4.1.0': {}
+
   '@fastify/fast-json-stringify-compiler@4.3.0':
     dependencies:
       fast-json-stringify: 5.16.1
@@ -2874,6 +2894,13 @@ snapshots:
   fast-uri@2.4.0: {}
 
   fast-uri@3.0.6: {}
+
+  fastify-type-provider-zod@4.0.2(fastify@4.29.1)(zod@3.24.3):
+    dependencies:
+      '@fastify/error': 4.1.0
+      fastify: 4.29.1
+      zod: 3.24.3
+      zod-to-json-schema: 3.24.5(zod@3.24.3)
 
   fastify@4.29.1:
     dependencies:

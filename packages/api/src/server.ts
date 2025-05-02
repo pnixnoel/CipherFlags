@@ -21,7 +21,7 @@ async function start() {
     // register our flags endpoints
     await flagsRoutes(app);
 
-    app.register(secretsRoutes, { prefix: "/api" });
+    await secretsRoutes(app);
 
 
     await app.listen({ port: 4000 });
